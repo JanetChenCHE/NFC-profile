@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Janet Chen — Profile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Bebas+Neue&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C96A;
+    --gold-dim: #8A6E32;
+    --black: #060608;
+    --surface: #0D0D10;
+    --surface2: #141418;
+    --surface3: #1C1C22;
+    --text: #F0EAD6;
+    --text-dim: #8A8470;
+    --white: #FAFAF8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+  }
+
+  /* ── GOLD GLOW TOP ── */
+  body::after {
+    content: '';
+    position: fixed;
+    top: -40%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70vw;
+    height: 60vw;
+    background: radial-gradient(ellipse, rgba(201,168,76,0.08) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 24px 40px;
+    text-align: center;
+  }
+
+  .nfc-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    border: 1px solid rgba(201,168,76,0.2);
+    padding: 6px 14px;
+    border-radius: 20px;
+    margin-bottom: 36px;
+    animation: fadeSlideDown 0.8s ease both;
+  }
+  .nfc-badge svg { width: 12px; height: 12px; fill: var(--gold-dim); }
+
+  .avatar-wrap {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin-bottom: 28px;
+    animation: fadeSlideDown 0.9s 0.1s ease both;
+  }
+
+  .avatar-ring {
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    background: conic-gradient(var(--gold) 0deg, var(--gold-light) 90deg, var(--gold-dim) 180deg, transparent 270deg, var(--gold) 360deg);
+    animation: spin 8s linear infinite;
+  }
+
+  .avatar-ring::after {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    background: var(--black);
+    border-radius: 50%;
+  }
+
+  .avatar {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    background: var(--surface3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 42px;
+    border: 2px solid var(--surface3);
+    overflow: hidden;
+  }
+  .avatar img {
+    width: 100%; height: 100%; object-fit: cover; border-radius: 50%;
+  }
+  .avatar-placeholder {
+    width: 100%; height: 100%; border-radius: 50%;
+    background: linear-gradient(135deg, var(--surface3) 0%, #2a2a30 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 42px; color: var(--gold);
+  }
+
+  .name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(32px, 8vw, 48px);
+    font-weight: 300;
+    letter-spacing: 2px;
+    line-height: 1.1;
+    color: var(--white);
+    animation: fadeSlideDown 1s 0.2s ease both;
+  }
+
+  .nickname {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 6px;
+    color: var(--gold);
+    margin: 6px 0 10px;
+    animation: fadeSlideDown 1s 0.25s ease both;
+  }
+
+  .position {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    animation: fadeSlideDown 1s 0.3s ease both;
+  }
+
+  .divider-gold {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 28px auto;
+    animation: fadeIn 1s 0.4s ease both;
+  }
+
+  /* ── QUICK ACTIONS ── */
+  .quick-actions {
+    position: relative; z-index: 1;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    padding: 0 24px 40px;
+    animation: fadeSlideUp 1s 0.5s ease both;
+  }
+
+  .action-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--text-dim);
+    transition: all 0.3s ease;
+  }
+  .action-btn:hover { color: var(--gold); transform: translateY(-2px); }
+
+  .action-icon {
+    width: 52px; height: 52px;
+    border-radius: 16px;
+    background: var(--surface2);
+    border: 1px solid rgba(201,168,76,0.15);
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.3s ease;
+  }
+  .action-btn:hover .action-icon {
+    border-color: rgba(201,168,76,0.5);
+    background: rgba(201,168,76,0.08);
+    box-shadow: 0 0 20px rgba(201,168,76,0.15);
+  }
+  .action-icon svg { width: 22px; height: 22px; }
+  .action-label { font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; }
+
+  /* ── SECTIONS ── */
+  .section {
+    position: relative; z-index: 1;
+    padding: 0 20px 32px;
+    animation: fadeSlideUp 1s 0.6s ease both;
+  }
+
+  .section-label {
+    font-size: 8px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(201,168,76,0.2), transparent);
+  }
+
+  /* ── COMPANIES ── */
+  .company-card {
+    background: var(--surface2);
+    border: 1px solid rgba(201,168,76,0.1);
+    border-radius: 16px;
+    padding: 18px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .company-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .company-card:hover, .company-card.active {
+    border-color: rgba(201,168,76,0.3);
+    background: var(--surface3);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(201,168,76,0.1);
+  }
+  .company-card:hover::before, .company-card.active::before { opacity: 1; }
+
+  .company-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .company-logo {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px;
+    color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.25);
+    flex-shrink: 0;
+  }
+
+  .company-info { flex: 1; }
+  .company-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--white);
+    letter-spacing: 0.5px;
+  }
+  .company-role {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  .company-body {
+    display: none;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(201,168,76,0.1);
+  }
+  .company-body.open { display: block; }
+
+  .company-summary {
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--text-dim);
+    margin-bottom: 12px;
+  }
+
+  .company-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    border: 1px solid rgba(201,168,76,0.3);
+    padding: 7px 14px;
+    border-radius: 20px;
+    transition: all 0.3s;
+  }
+  .company-btn:hover { background: rgba(201,168,76,0.1); }
+
+  /* ── PROJECTS ── */
+  .project-scroll {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .project-scroll::-webkit-scrollbar { display: none; }
+
+  .project-card {
+    flex-shrink: 0;
+    width: 160px;
+    background: var(--surface2);
+    border: 1px solid rgba(201,168,76,0.1);
+    border-radius: 14px;
+    padding: 16px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .project-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold-dim), var(--gold));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .project-card:hover { border-color: rgba(201,168,76,0.25); }
+  .project-card:hover::after { transform: scaleX(1); }
+
+  .project-tag {
+    font-size: 8px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+    opacity: 0.8;
+  }
+  .project-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+  .project-desc {
+    font-size: 10px;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+
+  /* ── ASSOCIATES ── */
+  .associates-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .associate-card {
+    background: var(--surface2);
+    border: 1px solid rgba(201,168,76,0.1);
+    border-radius: 12px;
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s;
+  }
+  .associate-card:hover { border-color: rgba(201,168,76,0.25); }
+
+  .associate-avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--surface3);
+    border: 1px solid rgba(201,168,76,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue';
+    font-size: 14px;
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+  .associate-name {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--white);
+    line-height: 1.2;
+  }
+  .associate-title {
+    font-size: 9px;
+    color: var(--text-dim);
+    margin-top: 2px;
+  }
+
+  /* ── CONTACT INFO ── */
+  .contact-list { display: flex; flex-direction: column; gap: 10px; }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--surface2);
+    border: 1px solid rgba(201,168,76,0.1);
+    border-radius: 12px;
+    padding: 14px 16px;
+    text-decoration: none;
+    color: var(--text);
+    transition: all 0.3s;
+  }
+  .contact-item:hover {
+    border-color: rgba(201,168,76,0.3);
+    background: var(--surface3);
+    transform: translateX(4px);
+  }
+
+  .contact-icon {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    background: rgba(201,168,76,0.08);
+    border: 1px solid rgba(201,168,76,0.2);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .contact-icon svg { width: 18px; height: 18px; }
+
+  .contact-detail { flex: 1; }
+  .contact-type { font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-dim); }
+  .contact-value { font-size: 13px; color: var(--white); margin-top: 2px; }
+
+  .contact-arrow {
+    color: var(--gold-dim);
+    font-size: 18px;
+    transition: transform 0.3s;
+  }
+  .contact-item:hover .contact-arrow { transform: translateX(3px); color: var(--gold); }
+
+  /* ── SOCIAL ROW ── */
+  .social-row {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+  }
+
+  .social-btn {
+    display: flex; align-items: center; justify-content: center;
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: var(--surface2);
+    border: 1px solid rgba(201,168,76,0.15);
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+  .social-btn:hover {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.1);
+    box-shadow: 0 0 20px rgba(201,168,76,0.2);
+    transform: translateY(-2px);
+  }
+  .social-btn svg { width: 20px; height: 20px; }
+
+  /* ── FOOTER ── */
+  .footer {
+    position: relative; z-index: 1;
+    text-align: center;
+    padding: 20px 24px 100px;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    opacity: 0.5;
+  }
+
+  /* ── WHATSAPP FAB ── */
+  .whatsapp-fab {
+    position: fixed;
+    bottom: 28px; right: 20px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+  }
+
+  .whatsapp-tooltip {
+    background: var(--surface2);
+    border: 1px solid rgba(201,168,76,0.2);
+    color: var(--text);
+    font-size: 11px;
+    padding: 8px 14px;
+    border-radius: 20px;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateX(10px) scale(0.9);
+    transition: all 0.3s ease;
+    pointer-events: none;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  }
+  .whatsapp-fab:hover .whatsapp-tooltip {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+
+  .whatsapp-btn {
+    width: 58px; height: 58px;
+    border-radius: 50%;
+    background: #25D366;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 24px rgba(37,211,102,0.4), 0 0 0 0 rgba(37,211,102,0.4);
+    text-decoration: none;
+    animation: pulse-wa 2.5s infinite;
+    transition: transform 0.3s;
+  }
+  .whatsapp-btn:hover { transform: scale(1.08); }
+  .whatsapp-btn svg { width: 30px; height: 30px; fill: white; }
+
+  /* ── SAVE CONTACT BTN ── */
+  .save-contact-wrap {
+    position: relative; z-index: 1;
+    padding: 0 20px 20px;
+    text-align: center;
+  }
+
+  .save-contact-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, var(--gold-dim), var(--gold), var(--gold-light));
+    color: var(--black);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 16px 32px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    justify-content: center;
+    box-shadow: 0 8px 32px rgba(201,168,76,0.3);
+    transition: all 0.3s;
+    text-decoration: none;
+  }
+  .save-contact-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(201,168,76,0.45);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeSlideDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  @keyframes pulse-wa {
+    0%, 100% { box-shadow: 0 4px 24px rgba(37,211,102,0.4), 0 0 0 0 rgba(37,211,102,0.4); }
+    60% { box-shadow: 0 4px 24px rgba(37,211,102,0.4), 0 0 0 14px rgba(37,211,102,0); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════ HERO ══════════ -->
+<div class="hero">
+  <div class="nfc-badge">
+    <svg viewBox="0 0 24 24"><path d="M20 2H4C2.9 2 2 2.9 2 4v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-5 14.5h-2V10h-2V8.5c1.1 0 2-.4 2-1.5h2v9zM9 17c-2.2 0-4-1.8-4-4s1.8-4 4-4 4 1.8 4 4-1.8 4-4 4zm0-6.5c-1.4 0-2.5 1.1-2.5 2.5s1.1 2.5 2.5 2.5 2.5-1.1 2.5-2.5S10.4 10.5 9 10.5z"/></svg>
+    NFC • Digital Business Card
+  </div>
+
+  <div class="avatar-wrap">
+    <div class="avatar-ring"></div>
+    <div class="avatar">
+      <!-- Replace src with your actual photo URL -->
+      <!-- <div class="avatar-placeholder">Janet</div> -->
+       <img src="profile/images.jpg">
+    </div>
+  </div>
+
+  <h1 class="name">Chen Hui En</h1>
+  <div class="nickname">// Janet //</div>
+  <div class="position">SWJH &nbsp;·&nbsp; Junior Buisness Analyst &nbsp;·&nbsp; ChenBodyKit</div>
+
+  <div class="divider-gold"></div>
+</div>
+
+<!-- ══════════ SAVE CONTACT ══════════ -->
+<div class="save-contact-wrap">
+  <a class="save-contact-btn" href="data:text/vcard;charset=utf-8,BEGIN:VCARD%0AVERSION:3.0%0AFN:Alexander%20Chen%0AORG:NexGen%20Holdings%0ATEL:+60123456789%0AEMAIL:alex%40example.com%0AURL:https://yourprofile.com%0AEND:VCARD" download="alexander-chen.vcf">
+    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    Save Contact
+  </a>
+</div>
+
+<!-- ══════════ QUICK ACTIONS ══════════ -->
+<div class="quick-actions">
+  <a class="action-btn" href="https://wa.me/60167000913?text=Hi%20Janet!">
+    <div class="action-icon">
+      <svg fill="none" stroke="#C9A84C" stroke-width="1.5" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+    </div>
+    <span class="action-label">Call</span>
+  </a>
+  <a class="action-btn" href="janetche123@gmail.com">
+    <div class="action-icon">
+      <svg fill="none" stroke="#C9A84C" stroke-width="1.5" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+    </div>
+    <span class="action-label">Email</span>
+  </a>
+  <a class="action-btn" href="https://maps.google.com/?q=Chen Body Kit, 150, Jalan Serunai 1, Taman Sri Kulai Baru 2, 81000 Kulai, Johor" target="_blank">
+    <div class="action-icon">
+      <svg fill="none" stroke="#C9A84C" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+    </div>
+    <span class="action-label">Navigate</span>
+  </a>
+  <a class="action-btn" href="https://www.facebook.com/chen.hui.en.640195/" target="_blank">
+    <div class="action-icon">
+      <svg fill="#C9A84C" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+    </div>
+    <span class="action-label">Facebook</span>
+  </a>
+</div>
+
+<!-- ══════════ COMPANIES ══════════ -->
+<div class="section">
+  <div class="section-label">Ventures</div>
+
+  <div class="company-card" onclick="toggleCompany(this)">
+    <div class="company-header">
+      <div class="company-logo" style="background: linear-gradient(135deg,#1a1a20,#2a2a30);">NG</div>
+      <div class="company-info">
+        <div class="company-name">Chen Body Kit Trading</div>
+        <div class="company-role">Technician</div>
+      </div>
+      <svg width="16" height="16" fill="none" stroke="#8A6E32" stroke-width="2" viewBox="0 0 24 24" class="chevron" style="transition:transform 0.3s;flex-shrink:0"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="company-body">
+      <p class="company-summary">We provide high quality car bodykit service.</p>
+      <a class="company-btn" href="https://www.facebook.com/chenbodykit" target="_blank">
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
+        Visit Website
+      </a>
+    </div>
+  </div>
+
+  <div class="company-card" onclick="toggleCompany(this)">
+    <div class="company-header">
+      <div class="company-logo" style="background: linear-gradient(135deg,#0d1a10,#1a2e1e);">QX</div>
+      <div class="company-info">
+        <div class="company-name">Serba Wangi JH</div>
+        <div class="company-role">Junior Business Analyst</div>
+      </div>
+      <svg width="16" height="16" fill="none" stroke="#8A6E32" stroke-width="2" viewBox="0 0 24 24" class="chevron" style="transition:transform 0.3s;flex-shrink:0"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="company-body">
+      <p class="company-summary">Bring SWJH business to the highest level.</p>
+      <a class="company-btn" href="https://www.malaysiarice.com/" target="_blank">
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
+        Visit Website
+      </a>
+    </div>
+  </div>
+
+  <!-- <div class="company-card" onclick="toggleCompany(this)">
+    <div class="company-header">
+      <div class="company-logo" style="background: linear-gradient(135deg,#1a0d0d,#2e1a1a);">AV</div>
+      <div class="company-info">
+        <div class="company-name">Aurum Ventures</div>
+        <div class="company-role">Managing Partner</div>
+      </div>
+      <svg width="16" height="16" fill="none" stroke="#8A6E32" stroke-width="2" viewBox="0 0 24 24" class="chevron" style="transition:transform 0.3s;flex-shrink:0"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="company-body">
+      <p class="company-summary">Strategic venture capital fund investing in Series A/B tech startups across ASEAN. Portfolio spans edtech, healthtech, and sustainable energy — $120M AUM across 24 portfolio companies.</p>
+      <a class="company-btn" href="https://yourcompany3.com" target="_blank">
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
+        Visit Website
+      </a>
+    </div>
+  </div>
+
+  <div class="company-card" onclick="toggleCompany(this)">
+    <div class="company-header">
+      <div class="company-logo" style="background: linear-gradient(135deg,#0d0d1a,#1a1a30);">SY</div>
+      <div class="company-info">
+        <div class="company-name">Synapse Advisory</div>
+        <div class="company-role">Principal Advisor</div>
+      </div>
+      <svg width="16" height="16" fill="none" stroke="#8A6E32" stroke-width="2" viewBox="0 0 24 24" class="chevron" style="transition:transform 0.3s;flex-shrink:0"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="company-body">
+      <p class="company-summary">Boutique digital transformation consultancy helping Fortune 500 companies and government bodies navigate complex technology transitions, M&A integration, and innovation strategy.</p>
+      <a class="company-btn" href="https://yourcompany4.com" target="_blank">
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
+        Visit Website
+      </a>
+    </div>
+  </div> -->
+</div>
+
+<!-- ══════════ PROJECTS ══════════ -->
+<div class="section">
+  <div class="section-label">Featured Projects</div>
+  <div class="project-scroll">
+    <div class="project-card">
+      <div class="project-tag">▲ Chatbot</div>
+      <div class="project-name">WA Bot - LoyaltyProgram</div>
+      <div class="project-desc">Enhance Carnation Apple Customer Stickyness</div>
+    </div>
+    <div class="project-card">
+      <div class="project-tag">◆ Catalog</div>
+      <div class="project-name">Car Bodykit Catalog</div>
+      <div class="project-desc">Customers can refer to the catalog, campare and choose the most suitable products to there lovely car.</div>
+    </div>
+    <!-- <div class="project-card">
+      <div class="project-tag">● Smart City</div>
+      <div class="project-name">UrbanMesh</div>
+      <div class="project-desc">IoT sensor network for real-time urban traffic & energy management.</div>
+    </div>
+    <div class="project-card">
+      <div class="project-tag">✦ Web3</div>
+      <div class="project-name">VaultDAO</div>
+      <div class="project-desc">Decentralised treasury management protocol with $80M TVL.</div>
+    </div> -->
+  </div>
+</div>
+
+<!-- ══════════ ASSOCIATES ══════════ -->
+<!-- <div class="section">
+  <div class="section-label">Key Associates</div>
+  <div class="associates-grid">
+    <div class="associate-card">
+      <div class="associate-avatar">SW</div>
+      <div>
+        <div class="associate-name">Sarah Wong</div>
+        <div class="associate-title">COO, NexGen</div>
+      </div>
+    </div>
+    <div class="associate-card">
+      <div class="associate-avatar">RL</div>
+      <div>
+        <div class="associate-name">Ryan Lim</div>
+        <div class="associate-title">CTO, QX Labs</div>
+      </div>
+    </div>
+    <div class="associate-card">
+      <div class="associate-avatar">MA</div>
+      <div>
+        <div class="associate-name">Maya Aziz</div>
+        <div class="associate-title">Partner, Aurum</div>
+      </div>
+    </div>
+    <div class="associate-card">
+      <div class="associate-avatar">JT</div>
+      <div>
+        <div class="associate-name">James Tan</div>
+        <div class="associate-title">Lead, Atlas AI</div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<!-- ══════════ CONTACT ══════════ -->
+<div class="section">
+  <div class="section-label">Get In Touch</div>
+  <div class="contact-list">
+    <a class="contact-item" href="https://wa.me/60167000913?text=Hi%20Janet!">
+      <div class="contact-icon">
+        <svg fill="none" stroke="#C9A84C" stroke-width="1.5" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-type">Mobile</div>
+        <div class="contact-value">+60 16-7000913</div>
+      </div>
+      <div class="contact-arrow">›</div>
+    </a>
+    <a class="contact-item" href="janetche123@gmail.com">
+      <div class="contact-icon">
+        <svg fill="none" stroke="#C9A84C" stroke-width="1.5" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-type">Email</div>
+        <div class="contact-value">janetche123@gmail.com</div>
+      </div>
+      <div class="contact-arrow">›</div>
+    </a>
+    <a class="contact-item" href="https://maps.google.com/?q=Chen Body Kit, 150, Jalan Serunai 1, Taman Sri Kulai Baru 2, 81000 Kulai, Johor" target="_blank">
+      <div class="contact-icon">
+        <svg fill="none" stroke="#C9A84C" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-type">Office</div>
+        <div class="contact-value">Chen Body Kit, Kulai</div>
+      </div>
+      <div class="contact-arrow">›</div>
+    </a>
+    <a class="contact-item" href="https://facebook.com/chen.hui.en.640195" target="_blank">
+      <div class="contact-icon">
+        <svg fill="#C9A84C" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-type">Facebook</div>
+        <div class="contact-value">fb.com/chen.hui.en.640195</div>
+      </div>
+      <div class="contact-arrow">›</div>
+    </a>
+  </div>
+</div>
+
+<!-- ══════════ SOCIAL ══════════ -->
+<div class="section">
+  <div class="section-label">Social</div>
+  <div class="social-row">
+    <a class="social-btn" href="https://www.linkedin.com/in/chenhuien-janet/" target="_blank" title="LinkedIn">
+      <svg fill="#C9A84C" viewBox="0 0 24 24" width="20" height="20"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2" fill="#C9A84C"/></svg>
+    </a>
+    <a class="social-btn" href="https://instagram.com/che_hx" target="_blank" title="Instagram">
+      <svg fill="none" stroke="#C9A84C" stroke-width="1.5" viewBox="0 0 24 24" width="20" height="20"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#C9A84C" stroke="none"/></svg>
+    </a>
+    <a class="social-btn" href="https://twitter.com/che_hx" target="_blank" title="X / Twitter">
+      <svg fill="#C9A84C" viewBox="0 0 24 24" width="20" height="20"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+    </a>
+    <!-- <a class="social-btn" href="https://t.me/yourprofile" target="_blank" title="Telegram">
+      <svg fill="#C9A84C" viewBox="0 0 24 24" width="20" height="20"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.833.941z"/></svg>
+    </a> -->
+  </div>
+</div>
+
+<div class="footer">© 2025 Chen Hui En · All Rights Reserved</div>
+
+<!-- ══════════ WHATSAPP FAB ══════════ -->
+<div class="whatsapp-fab">
+  <div class="whatsapp-tooltip">Chat on WhatsApp</div>
+  <a class="whatsapp-btn" href="https://wa.me/60167000913?text=Hi%20Janet!" target="_blank">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+    </svg>
+  </a>
+</div>
+
+<script>
+  function toggleCompany(card) {
+    const body = card.querySelector('.company-body');
+    const chevron = card.querySelector('.chevron');
+    const isOpen = body.classList.contains('open');
+    // close all
+    document.querySelectorAll('.company-body').forEach(b => b.classList.remove('open'));
+    document.querySelectorAll('.company-card').forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('.chevron').forEach(ch => ch.style.transform = 'rotate(0deg)');
+    // open clicked if it was closed
+    if (!isOpen) {
+      body.classList.add('open');
+      card.classList.add('active');
+      chevron.style.transform = 'rotate(180deg)';
+    }
+  }
+</script>
+</body>
+</html>
